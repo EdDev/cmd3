@@ -133,8 +133,8 @@ TEST(cmd3, add_2nd_root_cmd__two_root_cmd_exist_seen_in_usage)
 	const char *argv[1];
 	char report_buf[256];
 
-	char report_expected[256] = 	"cmdtest1 - cmd test 1""\n"
-								 	"cmdtest2 - cmd test 2""\n";
+	char report_expected[256] = 	"cmdtest1              cmd test 1""\n"
+								 	"cmdtest2              cmd test 2""\n";
 
 	cmdtree_d cmdtree = new_cmdtree_create("cmdtest2", "cmd test 2", cmdtest2, CMDTREE_NO_PARENT);
 
@@ -154,9 +154,9 @@ TEST(cmd3, add_3rd_root_cmd__three_root_cmd_exist_seen_in_usage)
 	const char *argv[1];
 	char report_buf[256];
 
-	char report_expected[256] = 	"cmdtest1 - cmd test 1""\n"
-									"cmdtest2 - cmd test 2""\n"
-								 	"cmdtest3 - cmd test 3""\n";
+	char report_expected[256] = 	"cmdtest1              cmd test 1""\n"
+									"cmdtest2              cmd test 2""\n"
+								 	"cmdtest3              cmd test 3""\n";
 
 	cmdtree_d cmdtree2 = new_cmdtree_create("cmdtest2", "cmd test 2", cmdtest2, CMDTREE_NO_PARENT);
 	cmdtree_d cmdtree3 = new_cmdtree_create("cmdtest3", "cmd test 3", cmdtest3, CMDTREE_NO_PARENT);
@@ -179,7 +179,7 @@ TEST(cmd3, add_one_child_cmd__child_cmd_exist_seen_in_usage)
 	char report_buf[256];
 
 	const char arg0[] = "cmdtest2";
-	char report_expected[256]  = "cmdtest2.1 - cmd test 2.1""\n";
+	char report_expected[256]  = "cmdtest2.1            cmd test 2.1""\n";
 
 	cmdtree_d cmdtree2  = new_cmdtree_create("cmdtest2",   "cmd test 2",   NULL, 	 CMDTREE_NO_PARENT);
 	cmdtree_d cmdtree21 = new_cmdtree_create("cmdtest2.1", "cmd test 2.1", cmdtest2, "cmdtest2");
@@ -203,11 +203,11 @@ TEST(cmd3, add_tree_child_cmd__child_cmd_exist_seen_in_usage)
 	char report_buf[256];
 
 	const char arg0[] = "cmdtest2";
-	char report_expected[256]  = "cmdtest2.1 - cmd test 2.1""\n"
-								 "cmdtest2.2 - cmd test 2.2""\n"
-								 "cmdtest2.3 - cmd test 2.3""\n";
+	char report_expected[256]  = "cmdtest2.1            cmd test 2.1""\n"
+								 "cmdtest2.2            cmd test 2.2""\n"
+								 "cmdtest2.3            cmd test 2.3""\n";
 
-	cmdtree_d cmdtree2  = new_cmdtree_create("cmdtest2", 	 "cmd test 2", 	 NULL, CMDTREE_NO_PARENT);
+	cmdtree_d cmdtree2  = new_cmdtree_create("cmdtest2", "cmd test 2", NULL, CMDTREE_NO_PARENT);
 	cmdtree_d cmdtree21 = new_cmdtree_create("cmdtest2.1", "cmd test 2.1", cmdtest2, "cmdtest2");
 	cmdtree_d cmdtree22 = new_cmdtree_create("cmdtest2.2", "cmd test 2.2", cmdtest2, "cmdtest2");
 	cmdtree_d cmdtree23 = new_cmdtree_create("cmdtest2.3", "cmd test 2.3", cmdtest2, "cmdtest2");
@@ -233,7 +233,7 @@ TEST(cmd3, execute_cmd_from_root)
 
 	const char arg0[] = "cmdtest1";
 	const char arg1[] = "arg1";
-	char report_expected[256]  = "cmdtest1: argc=1, arg[0]=arg1""\n";
+	char report_expected[256]  = "cmdtest1: argc=2, arg[0]=cmdtest1""\n";
 
 	argc 	= 2;
 	argv[0] = (char *)arg0;
@@ -254,7 +254,7 @@ TEST(cmd3, execute_cmd_from_3_level_deep)
 	const char arg1[] = "cmdtest2.2";
 	const char arg2[] = "cmdtest2.2.1";
 	const char arg3[] = "arg0";
-	char report_expected[256]  = "cmdtest1: argc=1, arg[0]=arg0""\n";
+	char report_expected[256]  = "cmdtest1: argc=2, arg[0]=cmdtest2.2.1""\n";
 
 	cmdtree_d cmdtree2   = new_cmdtree_create("cmdtest2", 	 	"cmd test 2", 	  NULL, 	CMDTREE_NO_PARENT);
 	cmdtree_d cmdtree21  = new_cmdtree_create("cmdtest2.1", 	"cmd test 2.1",   NULL, 	"cmdtest2");

@@ -246,7 +246,7 @@ int cmdtree_exec(int argc, const char **argv, char *buf, size_t buf_size)
 		if(cmd_tree)
 		{
 			if(NULL != cmd_tree->cmdfunc)
-				ret = cmd_tree->cmdfunc(argc, argv, buf, buf_size);
+				ret = cmd_tree->cmdfunc(++argc, --argv, buf, buf_size);
 			else if(cmd_tree->child)
 				ret = cmdtree_report_tree(cmd_tree->child, buf);
 		}
@@ -274,7 +274,7 @@ static int cmdtree_report_tree(cmdtree_d cmd_start, char *buf)
 
 	HASH_ITER(hh, cmd_start, cmd_iterate, cmd_temp)
 	{
-		buf += sprintf(buf, "%s - %s\n", cmd_iterate->name, cmd_iterate->comment);
+		buf += sprintf(buf, "%-20s  %s\n", cmd_iterate->name, cmd_iterate->comment);
 	}
 
 	buf_len = buf - buf_base;
