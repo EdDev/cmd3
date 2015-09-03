@@ -8,10 +8,24 @@ SRC += src/cmd3/cmd3.c
 
 SRC += src/example.c
 
-cmd3_example: $(HDR) $(SRC)
+OBJ = $(SRC:.c=.o)
 
-cmd3_example: $(SRC)
-	$(CC) -Wall -Werror -Os -g -I./src -o cmd3_example $(SRC)
+EXEC = cmd3_example
+
+.PHONY: all
+all: utest $(EXEC)
+
+.PHONY: utest
+utest:
+	$(MAKE) -C unit_tester
+
+$(EXEC):$(OBJ)
+	$(CC) -Wall -Werror -O0 -g -o $(EXEC) *.o
+
+%.o: %.c $(HDR) 
+	$(CC) -Wall -Werror -O0 -g -c -I./src $<
 
 clean:
-	rm -f cmd3_example
+	rm -f $(EXEC)
+	rm -f *.o
+	$(MAKE) -C unit_tester $@
