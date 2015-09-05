@@ -12,7 +12,7 @@ INCLUDE_DIRS =\
 TEST_SRC_DIRS = \
 	$(TEST_ROOT)/helpers/src\
 	$(TEST_ROOT)/tests\
-#	$(TEST_ROOT)/tests/test_folder\
+	$(TEST_ROOT)/tests/cmd3\
 #	<Add here the folder that contains the tester source>	
 
 MOCKS_SRC_DIRS =\
