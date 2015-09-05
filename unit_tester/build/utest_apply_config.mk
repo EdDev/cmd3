@@ -15,7 +15,7 @@ ifeq ($(CPPUTEST_ENABLE_C99), Y)
 	CPPUTEST_CFLAGS += -std=c99
 endif
 
-ifeq ($(CPPUTEST_ENABLE_CPP11), Y)
+ifeq ($(CPPUTEST_ENABLE_C++11), Y)
 	CPPUTEST_CXXFLAGS += -std=c++11
 endif
 

@@ -21,13 +21,17 @@ COMPONENT_NAME 		:= $(APP_EXEC_NAME)_$(ARCH)
 
 WORKSPACE_ROOT		:= $(realpath $(PRODUCTION_ROOT)/)
 PRODUCTION_SOURCES	:= $(PRODUCTION_ROOT)/src
-TEST_ROOT			:= $(PRODUCTION_ROOT)/unit_tester
-TEST_SRC			:= $(TEST_ROOT)/tests
+TEST_ROOT		:= $(PRODUCTION_ROOT)/unit_tester
+TEST_SRC		:= $(TEST_ROOT)/tests
+
+TESTS_PATH := $(realpath $(TEST_ROOT)/tests)
 
 ifneq ($(SILENCE), @)
 $(info *** ARCH=$(ARCH) ***)
 $(info *** WORKSPACE_ROOT=$(WORKSPACE_ROOT) ***)
 $(info *** CPPUTEST_HOME=$(CPPUTEST_HOME) ***)
+$(info *** TEST_ROOT=$(TEST_ROOT) ***)
+$(info *** TESTS_PATH=$(TESTS_PATH) ***)
 endif
 
 UNAME_OUTPUT := $(shell uname -a)
@@ -46,6 +50,4 @@ ifeq ($(findstring $(CYGWIN_STR),$(UNAME_OUTPUT)),$(CYGWIN_STR))
 endif
 
 CPPUTEST_CPPFLAGS += -DUT_ARCH_$(ARCH)
-
-# Using cygwin or mingw which uses gcc.
-CC := gcc
+CPPUTEST_CPPFLAGS += -DUT_TESTS_PATH=\"$(TESTS_PATH)\"

@@ -70,7 +70,6 @@ MOCKS_OBJS = $(call src_to_o,$(MOCKS_SRC))
 STUFF_TO_CLEAN += $(MOCKS_OBJS)
 
 ALL_SRC = $(SRC) $(TEST_SRC) $(MOCKS_SRC)
-# ALL_SRC = $(SRC) $(MOCKS_SRC) $(TEST_SRC)
 
 # If we're using VPATH
 ifeq ($(CPPUTEST_USE_VPATH), Y)
@@ -153,7 +152,7 @@ flags:
 	
 $(TEST_TARGET): $(TEST_OBJS) $(MOCKS_OBJS)  $(PRODUCTION_CODE_START) $(TARGET_LIB) $(USER_LIBS) $(PRODUCTION_CODE_END) $(CPPUTEST_LIB) $(STDLIB_CODE_START) 
 	$(SILENCE)echo Linking $@
-	$(SILENCE)$(LINK.o) -o $@ -Wl,--whole-archive $^ -Wl,--no-whole-archive $(LD_LIBRARIES)
+	$(SILENCE)$(LINK.cpp) -o $@ -Wl,--whole-archive $^ -Wl,--no-whole-archive $(LD_LIBRARIES)
 
 $(TARGET_LIB): $(OBJ)
 	$(SILENCE)echo Building archive $@
